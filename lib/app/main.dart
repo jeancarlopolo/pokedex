@@ -9,16 +9,10 @@ void main() {
   runApp(const MyApp());
 }
 
-void setup() {
-  //TODO
-  // carregar banco de dados
-  // registrar banco de dados?
+void setup() async {
+  final prefs = await SharedPreferences.getInstance();
+  // GetIt.I.registerSingleton<SharedPreferences>(prefs);
 
-  // registrar temas
-  // registrar favoritos
-
-  // carregar temas
-  // carregar favoritos
-  GetIt.I.registerSingleton<Settings>(Settings());
-  GetIt.I.registerSingleton<Favorites>(Favorites());
+  GetIt.I.registerSingleton<Settings>(Settings(prefs));
+  GetIt.I.registerSingleton<Favorites>(Favorites(prefs));
 }
