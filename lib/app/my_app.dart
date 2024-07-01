@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
       title: 'Pókedex',
       
       initialRoute: '/pokemon',
+      // TODO telas
       routes:
       '/pokemon': () => ,
       '/favorites': () => ,
