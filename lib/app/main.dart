@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pokedex/app/my_app.dart';
+import 'package:pokedex/services/settings.dart';
 
 void main() {
   setup();
@@ -15,5 +17,5 @@ void setup() {
 
   // carregar temas
   // carregar favoritos
-  GetIt.I.registerSingleton<Themes>
+  GetIt.I.registerSingleton<Settings>(Settings());
 }
