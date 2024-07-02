@@ -17,7 +17,7 @@ class Favorites {
     final loadedValues = _prefs.getStringList('favorites');
     if (loadedValues != null) {
       _favoriteIds = loadedValues;
-      favoritePokemons.value = await _loadPokemons();
+      fetchPokemons();
     } else {
       _favoriteIds = [];
       _prefs.setStringList('favorites', []);
@@ -34,8 +34,6 @@ class Favorites {
 
   void _add(String id) async {
     _favoriteIds.add(id);
-    favoritePokemons.add(await Pokemon.fromId(id));
-
     _prefs.setStringList('favorites', _favoriteIds);
   }
 
@@ -48,11 +46,19 @@ class Favorites {
     _prefs.setStringList('favorites', _favoriteIds);
   }
 
-  Future<List<Pokemon>> _loadPokemons() async {
-    final List<Pokemon> lista = [];
+  void fetchPokemons() async {
     for (String id in _favoriteIds) {
-      lista.add(await Pokemon.fromId(id));
+      bool found = false;
+      for (Pokemon pokemon in favoritePokemons) {
+        found = false;
+        if (pokemon.id == id) {
+          found = true;
+          break;
+        }
+      }
+      if (found == false) { // se não carregou ainda nos pokemons em cache
+        favoritePokemons.add(await Pokemon.fromId(id));
+      }
     }
-    return lista;
   }
 }
