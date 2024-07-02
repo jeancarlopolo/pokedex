@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:pokedex/constants/pokemon_type.dart';
 
 class Pokemon {
-  int id;
+  String id;
   String name;
   List<PokemonType> pokemonTypes = [];
   String sprite;
@@ -18,7 +19,7 @@ class Pokemon {
   });
 
   Pokemon copyWith({
-    int? id,
+    String? id,
     String? name,
     List<PokemonType>? pokemonTypes,
     String? sprite,
@@ -40,10 +41,21 @@ class Pokemon {
     };
   }
 
+  static Future<Pokemon> fromId(String id) async {
+    final response =
+        await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$id'));
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      return Pokemon.fromJson(json);
+    } else {
+      throw Exception('Failed to load Pokémon');
+    }
+  }
+
   factory Pokemon.fromMap(Map<String, dynamic> map) {
     return switch (map) {
       {
-        'id': int id,
+        'id': String id,
         'name': String name,
         'types': List types,
         'sprite': {'front_default': String sprite}
