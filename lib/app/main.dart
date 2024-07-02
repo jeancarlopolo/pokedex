@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   setup();
-  runApp(const PokedexApp());
+  runApp(PokedexApp());
 }
 
 void setup() async {
