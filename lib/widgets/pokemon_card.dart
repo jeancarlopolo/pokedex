@@ -30,42 +30,35 @@ class PokemonCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Stack(
-          children: [
-            // icones dos tipos
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: TypeIcon(pokemonType: pokemon.pokemonTypes[0]),
-            ),
-
-            pokemon.pokemonTypes.length > 1
-                ? Align(
-                    alignment: Alignment.topRight,
-                    child: TypeIcon(pokemonType: pokemon.pokemonTypes[1]),
-                  )
-                : const SizedBox(),
-
-            Container(
-              decoration: BoxDecoration(
-                gradient: gradient,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(20),
-              margin: const EdgeInsets.all(20),
-              height: 300,
-              width: 300,
-              child: Image.network(
-                pokemon.sprite,
-                alignment: Alignment.center,
-                fit: BoxFit.contain,
-              ),
-            ),
-          ],
+        Container(
+          decoration: BoxDecoration(
+            gradient: gradient,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(20),
+          margin: const EdgeInsets.all(20),
+          height: 300,
+          width: 300,
+          child: Image.network(
+            pokemon.sprite,
+            alignment: Alignment.center,
+            fit: BoxFit.contain,
+          ),
         ),
 
 //TODO tema
-        Text(pokemon.name)
+        Text(pokemon.name),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TypeIcon(pokemonType: pokemon.pokemonTypes[0]),
+            pokemon.pokemonTypes.length > 1
+                ? TypeIcon(pokemonType: pokemon.pokemonTypes[1])
+                : const SizedBox(),
+          ],
+        )
       ],
     );
   }
