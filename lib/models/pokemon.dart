@@ -64,7 +64,7 @@ class Pokemon {
             id: id,
             name: name,
             pokemonTypes: types
-                .map((type) => PokemonType.fromString(type['name'])!)
+                .map((type) => PokemonType.fromString(type['type']['name'])!)
                 .toList(),
             sprite: sprite),
       _ => throw const FormatException('Failed to load Pokémon.'),

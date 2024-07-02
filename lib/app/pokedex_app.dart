@@ -9,7 +9,7 @@ import 'package:signals/signals_flutter.dart';
 
 class PokedexApp extends StatelessWidget {
   PokedexApp({super.key});
-  final currentTheme = GetIt.I<Settings>().currentTheme;
+  late final currentTheme = GetIt.I<Settings>().currentTheme;
 
   @override
   Widget build(BuildContext context) {

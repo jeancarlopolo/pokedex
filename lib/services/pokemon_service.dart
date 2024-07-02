@@ -22,7 +22,7 @@ class PokemonService {
     if (_isLoading.value) return;
 
     _isLoading.value = true;
-
+    print('https://pokeapi.co/api/v2/pokemon?offset=${_page * 20}&limit=20');
     final response = await http.get(Uri.parse(
         'https://pokeapi.co/api/v2/pokemon?offset=${_page * 20}&limit=20'));
     final data = json.decode(response.body);
@@ -30,7 +30,8 @@ class PokemonService {
     for (Map pokemon in data['results'] as List) {
       final pokemonResponse = await http.get(Uri.parse(pokemon['url']));
       final pokemonData = json.decode(pokemonResponse.body);
-      _pokemons.add(Pokemon.fromJson(pokemonData));
+      print(pokemonData['name']);
+      _pokemons.add(Pokemon.fromMap(pokemonData));
     }
 
     _page++;
@@ -52,7 +53,7 @@ class PokemonService {
       final pokemonResponse =
           await http.get(Uri.parse(pokemonMap['pokemon']['url']));
       final pokemonData = json.decode(pokemonResponse.body);
-      _pokemons.add(Pokemon.fromJson(pokemonData));
+      _pokemons.add(Pokemon.fromMap(pokemonData));
     }
     _page++;
 
@@ -74,7 +75,7 @@ class PokemonService {
           .contains(name.toLowerCase().trim())) {
         final pokemonResponse = await http.get(Uri.parse(pokemon['url']));
         final pokemonData = json.decode(pokemonResponse.body);
-        _pokemons.add(Pokemon.fromJson(pokemonData));
+        _pokemons.add(Pokemon.fromMap(pokemonData));
       }
     }
 
