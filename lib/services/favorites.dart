@@ -13,7 +13,7 @@ class Favorites {
   late final List<String> _favoriteIds;
   final favoritePokemons = listSignal<Pokemon>([]);
 
-  void initFavorites() async {
+  void init() async {
     final loadedValues = _prefs.getStringList('favorites');
     if (loadedValues != null) {
       _favoriteIds = loadedValues;
