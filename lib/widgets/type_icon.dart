@@ -15,13 +15,16 @@ class TypeIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:
-          BoxDecoration(shape: BoxShape.circle, color: pokemonType.color),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: pokemonType.color,
+      ),
       padding: EdgeInsets.all(height / 4),
       margin: EdgeInsets.all(height / 4),
       child: SvgPicture.asset(
         pokemonType.svgPath,
         alignment: Alignment.center,
+        fit: BoxFit.scaleDown,
         height: height,
         width: width,
       ),

@@ -22,22 +22,32 @@ class _PokemonPageState extends State<PokemonPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pokemonService.isLoading.watch(context)
-          ? const Center(child: CircularProgressIndicator())
-          : GridView.builder(
+      body: FutureBuilder(
+        future: pokemonService.fetchPokemons(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
+                  crossAxisCount: 2, childAspectRatio: 1),
               itemBuilder: (context, index) {
                 if (index == pokemonService.pokemons.length - 1) {
-                  pokemonService.fetchPokemons();
+                  setState(() {});
                 }
                 return PokemonCard(
                   pokemonService.pokemons[index],
                 );
               },
               itemCount: pokemonService.pokemons.length,
-            ),
+            );
+          } else if (snapshot.hasError) {
+            return const Center(
+              child: Text('There was an error, Please try again'),
+            )
+          }
+            else {}
+          }
+        },
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:pokedex/models/pokemon.dart';
 import 'package:pokedex/widgets/type_icon.dart';
 
@@ -40,9 +41,9 @@ class PokemonCard extends StatelessWidget {
           child: Image.network(
             pokemon.sprite,
             alignment: Alignment.center,
-            fit: BoxFit.contain,
-            height: 300,
-            width: 300,
+            fit: BoxFit.scaleDown,
+            height: 100,
+            width: 100,
           ),
         ),
 
@@ -53,9 +54,17 @@ class PokemonCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TypeIcon(pokemonType: pokemon.pokemonTypes[0]),
+              TypeIcon(
+                pokemonType: pokemon.pokemonTypes[0],
+                height: 50,
+                width: 50,
+              ),
               pokemon.pokemonTypes.length > 1
-                  ? TypeIcon(pokemonType: pokemon.pokemonTypes[1])
+                  ? TypeIcon(
+                      pokemonType: pokemon.pokemonTypes[1],
+                      height: 50,
+                      width: 50,
+                    )
                   : const SizedBox(),
             ],
           ),
