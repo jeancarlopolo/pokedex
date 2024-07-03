@@ -36,28 +36,29 @@ class PokemonCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
           ),
           alignment: Alignment.center,
-          padding: const EdgeInsets.all(20),
           margin: const EdgeInsets.all(20),
-          height: 300,
-          width: 300,
           child: Image.network(
             pokemon.sprite,
             alignment: Alignment.center,
             fit: BoxFit.contain,
+            height: 300,
+            width: 300,
           ),
         ),
 
 //TODO tema
         Text(pokemon.name),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TypeIcon(pokemonType: pokemon.pokemonTypes[0]),
-            pokemon.pokemonTypes.length > 1
-                ? TypeIcon(pokemonType: pokemon.pokemonTypes[1])
-                : const SizedBox(),
-          ],
+        Center(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TypeIcon(pokemonType: pokemon.pokemonTypes[0]),
+              pokemon.pokemonTypes.length > 1
+                  ? TypeIcon(pokemonType: pokemon.pokemonTypes[1])
+                  : const SizedBox(),
+            ],
+          ),
         )
       ],
     );

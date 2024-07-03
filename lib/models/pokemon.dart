@@ -53,24 +53,29 @@ class Pokemon {
   }
 
   factory Pokemon.fromMap(Map<String, dynamic> map) {
-    return switch (map) {
-      {
-        'id': String id,
-        'name': String name,
-        'types': List types,
-        'sprite': {'front_default': String sprite}
-      } =>
-        Pokemon(
-            id: id,
-            name: name,
-            pokemonTypes: types
-                .map((type) => PokemonType.fromString(type['type']['name'])!)
-                .toList(),
-            sprite: sprite),
-      _ => throw const FormatException('Failed to load Pokémon.'),
-    };
-    //pokemonTypes: (map['types'] as List).map((type) => PokemonType.fromString(type['name'])!).toList(),
-    //sprite: map['sprites']['front_default']
+    return Pokemon(
+        id: '${map['id']}',
+        name: map['name'],
+        pokemonTypes: (map['types'] as List)
+            .map((e) => PokemonType.fromString(e['type']['name'])!)
+            .toList(),
+        sprite: map['sprites']['front_default']);
+    // return switch (map) {
+    //   {
+    //     'id': String id,
+    //     'name': String name,
+    //     'types': List<Map<String, dynamic>> types,
+    //     'sprite': {'front_default': String sprite}
+    //   } =>
+    //     Pokemon(
+    //         id: id,
+    //         name: name,
+    //         pokemonTypes: types
+    //             .map((type) => PokemonType.fromString(type['type']['name'])!)
+    //             .toList(),
+    //         sprite: sprite),
+    //   _ => throw const FormatException('Failed to load Pokémon.'),
+    // };
   }
 
   String toJson() => json.encode(toMap());

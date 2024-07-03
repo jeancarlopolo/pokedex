@@ -22,15 +22,17 @@ class PokemonService {
     if (_isLoading.value) return;
 
     _isLoading.value = true;
-    print('https://pokeapi.co/api/v2/pokemon?offset=${_page * 20}&limit=20');
     final response = await http.get(Uri.parse(
         'https://pokeapi.co/api/v2/pokemon?offset=${_page * 20}&limit=20'));
+        print(response.statusCode);
+
     final data = json.decode(response.body);
 
     for (Map pokemon in data['results'] as List) {
       final pokemonResponse = await http.get(Uri.parse(pokemon['url']));
+        print(pokemonResponse.statusCode);
+
       final pokemonData = json.decode(pokemonResponse.body);
-      print(pokemonData['name']);
       _pokemons.add(Pokemon.fromMap(pokemonData));
     }
 

@@ -22,17 +22,22 @@ class _PokemonPageState extends State<PokemonPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,),
-        itemBuilder: (context, index) {
-          if (index == pokemonService.pokemons.length) {
-            pokemonService.fetchPokemons();
-          }
-          return PokemonCard(pokemonService.pokemons[index],);
-        },
-        itemCount: pokemonService.pokemons.length,
-      ),
+      body: pokemonService.isLoading.watch(context)
+          ? const Center(child: CircularProgressIndicator())
+          : GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
+              itemBuilder: (context, index) {
+                if (index == pokemonService.pokemons.length - 1) {
+                  pokemonService.fetchPokemons();
+                }
+                return PokemonCard(
+                  pokemonService.pokemons[index],
+                );
+              },
+              itemCount: pokemonService.pokemons.length,
+            ),
     );
   }
 }
