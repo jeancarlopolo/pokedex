@@ -46,7 +46,7 @@ class Pokemon {
         await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$id'));
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
-      return Pokemon.fromJson(json);
+      return Pokemon.fromMap(json);
     } else {
       throw Exception('Failed to load Pokémon');
     }
