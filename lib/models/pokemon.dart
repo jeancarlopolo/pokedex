@@ -13,10 +13,10 @@ class Pokemon {
 
   Pokemon({
     required this.id,
-    required this.name,
+    required String name,
     required this.pokemonTypes,
     required this.sprite,
-  });
+  }) : name = name[0].toUpperCase() + name.substring(1);
 
   Pokemon copyWith({
     String? id,

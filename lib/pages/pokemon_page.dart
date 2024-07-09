@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:pokedex/models/pokemon.dart';
 import 'package:pokedex/services/pokemon_service.dart';
 import 'package:pokedex/widgets/pokemon_card.dart';
-import 'package:signals/signals_flutter.dart';
 
 class PokemonPage extends StatefulWidget {
   const PokemonPage({super.key});
@@ -14,7 +15,9 @@ class _PokemonPageState extends State<PokemonPage> {
   @override
   void initState() {
     super.initState();
-    pokemonService.fetchPokemons();
+    pokemonService.pagingController.addPageRequestListener((pageKey) {
+      pokemonService.fetchPokemons(pageKey);
+    });
   }
 
   final PokemonService pokemonService = PokemonService();
@@ -22,32 +25,24 @@ class _PokemonPageState extends State<PokemonPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: pokemonService.fetchPokemons(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, childAspectRatio: 1),
-              itemBuilder: (context, index) {
-                if (index == pokemonService.pokemons.length - 1) {
-                  setState(() {});
-                }
-                return PokemonCard(
-                  pokemonService.pokemons[index],
-                );
-              },
-              itemCount: pokemonService.pokemons.length,
-            );
-          } else if (snapshot.hasError) {
-            return const Center(
-              child: Text('There was an error, Please try again'),
-            )
-          }
-            else {}
-          }
-        },
+      body: PagedGridView(
+        padding: const EdgeInsets.all(16),
+        pagingController: pokemonService.pagingController,
+        builderDelegate: PagedChildBuilderDelegate<Pokemon>(
+          itemBuilder: (context, pokemon, index) {
+            return PokemonCard(pokemon);
+          },
+        ),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, crossAxisSpacing: 16, mainAxisSpacing: 20
+        ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    pokemonService.pagingController.dispose();
+    super.dispose();
   }
 }

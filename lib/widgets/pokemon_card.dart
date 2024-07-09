@@ -29,47 +29,43 @@ class PokemonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            gradient: gradient,
-            borderRadius: BorderRadius.circular(15),
+    return GridTile(
+      footer: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TypeIcon(
+            pokemonType: pokemon.pokemonTypes[0],
+            height: 25,
+            width: 25,
           ),
-          alignment: Alignment.center,
-          margin: const EdgeInsets.all(20),
-          child: Image.network(
-            pokemon.sprite,
-            alignment: Alignment.center,
-            fit: BoxFit.scaleDown,
-            height: 100,
-            width: 100,
-          ),
+          pokemon.pokemonTypes.length > 1
+              ? TypeIcon(
+                  pokemonType: pokemon.pokemonTypes[1],
+                  height: 25,
+                  width: 25,
+                )
+              : const SizedBox(),
+        ],
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: gradient,
+          boxShadow: [
+            BoxShadow(
+                color: pokemon.pokemonTypes[0].color,
+                blurRadius: 3,
+                spreadRadius: 1)
+          ],
+          borderRadius: BorderRadius.circular(15),
         ),
-
-//TODO tema
-        Text(pokemon.name),
-        Center(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TypeIcon(
-                pokemonType: pokemon.pokemonTypes[0],
-                height: 50,
-                width: 50,
-              ),
-              pokemon.pokemonTypes.length > 1
-                  ? TypeIcon(
-                      pokemonType: pokemon.pokemonTypes[1],
-                      height: 50,
-                      width: 50,
-                    )
-                  : const SizedBox(),
-            ],
-          ),
-        )
-      ],
+        alignment: Alignment.topCenter,
+        child: Image.network(
+          pokemon.sprite,
+          height: 150,
+          fit: BoxFit.contain,
+        ),
+      ),
     );
   }
 }
