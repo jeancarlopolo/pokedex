@@ -17,14 +17,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
 @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     favorites.favoritePokemons.sort((a, b) => a.id.compareTo(b.id),);
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(), // pesqiusa e filtro TODO
+      appBar: AppBar(),
 
       drawer: const MyDrawer(),
       body: GridView.builder(
