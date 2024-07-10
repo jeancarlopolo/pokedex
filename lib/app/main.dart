@@ -7,6 +7,7 @@ import 'package:pokedex/services/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   setup();
   runApp(PokedexApp());
 }

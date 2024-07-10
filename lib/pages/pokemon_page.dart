@@ -34,7 +34,6 @@ class _PokemonPageState extends State<PokemonPage> {
       drawer: const MyDrawer(),
 
       body: PagedGridView(
-        restorationId: '1',
         padding: const EdgeInsets.all(16),
         pagingController: pokemonService.pagingController,
         builderDelegate: PagedChildBuilderDelegate<Pokemon>(

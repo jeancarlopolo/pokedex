@@ -15,28 +15,26 @@ class FavoritesPage extends StatefulWidget {
 class _FavoritesPageState extends State<FavoritesPage> {
   final favorites = GetIt.I<Favorites>();
 
-@override
-  void initState() {
-    super.initState();
-    favorites.favoritePokemons.sort((a, b) => a.id.compareTo(b.id),);
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-
       drawer: const MyDrawer(),
-      body: GridView.builder(
-        itemBuilder: (context, index) =>
-            PokemonCard(favorites.favoritePokemons.watch(context)[index]),
-        padding: const EdgeInsets.all(16),
-        itemCount: favorites.favoritePokemons.watch(context).length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 20,
-        ),
-      ),
+      body: favorites.favoritePokemons.watch(context).isEmpty
+          ? const Center(
+              child: Text("No favorites yet :("),
+            )
+          : GridView.builder(
+              itemBuilder: (context, index) =>
+                  PokemonCard(favorites.favoritePokemons.watch(context)[index]),
+              padding: const EdgeInsets.all(16),
+              itemCount: favorites.favoritePokemons.watch(context).length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 20,
+              ),
+            ),
     );
   }
 }

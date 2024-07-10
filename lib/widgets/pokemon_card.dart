@@ -37,17 +37,15 @@ class PokemonCard extends StatelessWidget {
         header: Center(
           child: GridTileBar(
             trailing: GetIt.I<Favorites>().favoriteIds.watch(context).contains(pokemon.id) ? const Icon(Icons.favorite_rounded): const Icon(Icons.favorite_border_rounded),
-            title: Center(
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Theme.of(context).secondaryHeaderColor,
-                    borderRadius: BorderRadius.circular(8)),
-                padding: const EdgeInsets.all(2),
-                child: Text(
-                  '${pokemon.id.padLeft(3, '0')} - ${pokemon.name[0].toUpperCase()}${pokemon.name.substring(1)}',
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.secondary),
-                ),
+            title: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).secondaryHeaderColor,
+                  borderRadius: BorderRadius.circular(8)),
+              padding: const EdgeInsets.all(3),
+              child: Text(
+                '${pokemon.id.padLeft(3, '0')} - ${pokemon.name[0].toUpperCase()}${pokemon.name.substring(1)}',
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.secondary),
               ),
             ),
           ),

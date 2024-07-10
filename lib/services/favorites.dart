@@ -37,6 +37,10 @@ class Favorites {
   void _add(Pokemon pokemon) {
     favoriteIds.add(pokemon.id);
     favoritePokemons.add(pokemon);
+    favoritePokemons.sort(
+      (a, b) => int.parse(a.id).compareTo(int.parse(b.id)),
+    );
+
     _prefs.setStringList('favorites', favoriteIds);
   }
 
