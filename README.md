@@ -1,3 +1,1 @@
-# pokedex
-
-A new Flutter project.
+FALTA PÁGINAS, ESTRUTURA DO APP, FUNÇÃO DE PESQUISA
