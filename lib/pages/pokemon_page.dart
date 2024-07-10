@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pokedex/models/pokemon.dart';
 import 'package:pokedex/services/pokemon_service.dart';
+import 'package:pokedex/widgets/drawer.dart';
 import 'package:pokedex/widgets/pokemon_card.dart';
 
 class PokemonPage extends StatefulWidget {
@@ -15,17 +17,24 @@ class _PokemonPageState extends State<PokemonPage> {
   @override
   void initState() {
     super.initState();
-    pokemonService.pagingController.addPageRequestListener((pageKey) {
-      pokemonService.fetchPokemons(pageKey);
-    });
+    if (pokemonService.pagingController.itemList?.isEmpty ?? true) {
+      pokemonService.pagingController.addPageRequestListener((pageKey) {
+        pokemonService.fetchPokemons(pageKey);
+      });
+    }
   }
 
-  final PokemonService pokemonService = PokemonService();
+  final PokemonService pokemonService = GetIt.I<PokemonService>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(), // pesqiusa e filtro TODO
+
+      drawer: const MyDrawer(),
+
       body: PagedGridView(
+        restorationId: '1',
         padding: const EdgeInsets.all(16),
         pagingController: pokemonService.pagingController,
         builderDelegate: PagedChildBuilderDelegate<Pokemon>(
@@ -34,15 +43,8 @@ class _PokemonPageState extends State<PokemonPage> {
           },
         ),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, crossAxisSpacing: 16, mainAxisSpacing: 20
-        ),
+            crossAxisCount: 2, crossAxisSpacing: 16, mainAxisSpacing: 20),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    pokemonService.pagingController.dispose();
-    super.dispose();
   }
 }

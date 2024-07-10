@@ -1,3 +1,4 @@
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pokedex/models/pokemon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signals/signals.dart';
@@ -12,6 +13,7 @@ class Favorites {
   // salva apenas os ids no celular pra pegar da api quando o app abre
   final favoriteIds = listSignal<String>([]);
   final favoritePokemons = listSignal<Pokemon>([]);
+  final pagingController = PagingController(firstPageKey: 0);
 
   void init() async {
     final loadedValues = _prefs.getStringList('favorites');
@@ -24,24 +26,23 @@ class Favorites {
     }
   }
 
-  void toggleFavorite(String id) {
-    if (favoriteIds.contains(id)) {
-      _remove(id);
+  void toggleFavorite(Pokemon pokemon) {
+    if (favoriteIds.contains(pokemon.id)) {
+      _remove(pokemon);
     } else {
-      _add(id);
+      _add(pokemon);
     }
   }
 
-  void _add(String id) async {
-    favoriteIds.add(id);
+  void _add(Pokemon pokemon) {
+    favoriteIds.add(pokemon.id);
+    favoritePokemons.add(pokemon);
     _prefs.setStringList('favorites', favoriteIds);
   }
 
-  void _remove(String id) {
-    favoriteIds.remove(id);
-    favoritePokemons.removeWhere(
-      (element) => element.id == id,
-    );
+  void _remove(Pokemon pokemon) {
+    favoriteIds.remove(pokemon.id);
+    favoritePokemons.remove(pokemon);
 
     _prefs.setStringList('favorites', favoriteIds);
   }
@@ -56,7 +57,8 @@ class Favorites {
           break;
         }
       }
-      if (found == false) { // se não carregou ainda nos pokemons em cache
+      if (found == false) {
+        // se não carregou ainda nos pokemons em cache
         favoritePokemons.add(await Pokemon.fromId(id));
       }
     }

@@ -32,7 +32,7 @@ class PokemonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => GetIt.I<Favorites>().toggleFavorite(pokemon.id),
+      onTap: () => GetIt.I<Favorites>().toggleFavorite(pokemon),
       child: GridTile(
         header: Center(
           child: GridTileBar(

@@ -23,7 +23,7 @@ class PokedexApp extends StatelessWidget {
       routes: {
         '/pokemon': (context) => const PokemonPage(),
         '/favorites': (context) => const FavoritesPage(),
-        '/settings': (context) => const SettingsPage()
+        '/settings': (context) => const SettingsPage(),
       },
     );
   }
