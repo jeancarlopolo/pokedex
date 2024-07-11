@@ -59,7 +59,7 @@ class Pokemon {
         pokemonTypes: (map['types'] as List)
             .map((e) => PokemonType.fromString(e['type']['name'])!)
             .toList(),
-        sprite: map['sprites']['front_default']);
+        sprite: map['sprites']['other']['official-artwork']['front_default']);
     // return switch (map) {
     //   {
     //     'id': String id,

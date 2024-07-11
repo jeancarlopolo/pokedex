@@ -47,18 +47,24 @@ class SearchPokemon extends SearchDelegate {
             .get(Uri.parse('https://pokeapi.co/api/v2/type/${type.name}'));
         final data = json.decode(response.body);
         List<Pokemon> pokemons = [];
-
-        for (Map pokemonMap
-            in (data['pokemon'] as List).sublist(pageKey, pageKey + 10)) {
+        final apiList = (data['pokemon'] as List);
+        final pageKeyEnd =
+            pageKey + 10 < apiList.length ? pageKey + 10 : apiList.length;
+        if (pageKey == pageKeyEnd) {
+          searchController.appendLastPage(pokemons);
+          return;
+        }
+        for (Map pokemonMap in apiList.sublist(pageKey, pageKeyEnd)) {
           final pokemonResponse =
               await http.get(Uri.parse(pokemonMap['pokemon']['url']));
           final pokemonData = json.decode(pokemonResponse.body);
+      print(pokemonData['sprites']);
           pokemons.add(Pokemon.fromMap(pokemonData));
         }
         if (pokemons.length < 10) {
           searchController.appendLastPage(pokemons);
         } else {
-          final nextPageKey = pageKey + 10;
+          final nextPageKey = pageKeyEnd;
           searchController.appendPage(pokemons, nextPageKey);
         }
       }
@@ -76,13 +82,13 @@ class SearchPokemon extends SearchDelegate {
               context: context,
               builder: (context) => Dialog(
                 alignment: Alignment.center,
-
-                child: Container(
-                  width: 400,
-                  padding: const EdgeInsets.all(16),
+                child: SizedBox(
+                  width: 500,
                   child: GridView(
                     shrinkWrap: true,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    padding: const EdgeInsets.all(16),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 6,
                     ),
                     children: [
@@ -94,8 +100,8 @@ class SearchPokemon extends SearchDelegate {
                           },
                           child: TypeIcon(
                             pokemonType: PokemonType.values[index],
-                            height: 35,
-                            width: 35,
+                            height: 50,
+                            width: 50,
                           ),
                         ),
                       ),

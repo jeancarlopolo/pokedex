@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex/models/pokemon.dart';
@@ -47,16 +48,28 @@ class PokemonCard extends StatelessWidget {
                 : const Icon(
                     Icons.favorite_border_rounded,
                   ),
-            title: Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).secondaryHeaderColor,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              padding: const EdgeInsets.all(3),
-              child: Text(
-                '${pokemon.id.padLeft(3, '0')} - ${pokemon.name[0].toUpperCase()}${pokemon.name.substring(1)}',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
+            title: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).secondaryHeaderColor.withOpacity(0.75),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        '${pokemon.id.padLeft(3, '0')} - ${pokemon.name[0].toUpperCase()}${pokemon.name.substring(1)}',
+                        softWrap: true,
+                        maxLines: 2,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -91,10 +104,14 @@ class PokemonCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
           ),
           alignment: Alignment.center,
-          child: Image.network(
-            pokemon.sprite,
-            height: 150,
+          child: CachedNetworkImage(
+            imageUrl: pokemon.sprite,
+            height: 125,
             fit: BoxFit.contain,
+            maxHeightDiskCache: 175,
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
         ),
       ),

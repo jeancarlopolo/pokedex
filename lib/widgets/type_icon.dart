@@ -22,7 +22,6 @@ class TypeIcon extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: Theme.of(context).secondaryHeaderColor,
-        borderRadius: BorderRadius.circular(8),
       ),
       child: Container(
         decoration: BoxDecoration(
@@ -30,13 +29,13 @@ class TypeIcon extends StatelessWidget {
             color: pokemonType.color,
             boxShadow: const [BoxShadow(spreadRadius: 0, blurRadius: 1)]),
         padding: EdgeInsets.all(height / 4),
-        margin: const EdgeInsets.all(4),
+        margin: const EdgeInsets.all(2),
         child: SvgPicture.asset(
           pokemonType.svgPath,
           alignment: Alignment.center,
           fit: BoxFit.scaleDown,
-          height: height,
-          width: width,
+          height: height * 2,
+          width: width * 2,
         ),
       ),
     );
