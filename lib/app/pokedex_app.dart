@@ -29,7 +29,7 @@ class _PokedexAppState extends State<PokedexApp> {
       theme: Themes.light,
       darkTheme: Themes.dark,
       themeMode: currentTheme.watch(context) ? ThemeMode.dark : ThemeMode.light,
-      home: MyPage(),
+      home: const MyPage(),
     );
   }
 }
