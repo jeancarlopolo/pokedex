@@ -40,17 +40,24 @@ class PokemonCard extends StatelessWidget {
                     .favoriteIds
                     .watch(context)
                     .contains(pokemon.id)
-                ? const Icon(Icons.favorite_rounded, color: Colors.redAccent,)
-                : const Icon(Icons.favorite_border_rounded,),
+                ? const Icon(
+                    Icons.favorite_rounded,
+                    color: Colors.redAccent,
+                  )
+                : const Icon(
+                    Icons.favorite_border_rounded,
+                  ),
             title: Container(
               decoration: BoxDecoration(
-                  color: Theme.of(context).secondaryHeaderColor,
-                  borderRadius: BorderRadius.circular(8)),
+                color: Theme.of(context).secondaryHeaderColor,
+                borderRadius: BorderRadius.circular(8),
+              ),
               padding: const EdgeInsets.all(3),
               child: Text(
                 '${pokemon.id.padLeft(3, '0')} - ${pokemon.name[0].toUpperCase()}${pokemon.name.substring(1)}',
-                style:
-                    TextStyle(color: Theme.of(context).colorScheme.secondary),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
               ),
             ),
           ),
@@ -79,9 +86,7 @@ class PokemonCard extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: gradient,
             boxShadow: [
-              BoxShadow(
-                  color: pokemon.pokemonTypes[0].color,
-                  spreadRadius: 3)
+              BoxShadow(color: pokemon.pokemonTypes[0].color, spreadRadius: 3)
             ],
             borderRadius: BorderRadius.circular(15),
           ),

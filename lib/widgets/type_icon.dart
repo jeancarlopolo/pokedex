@@ -14,19 +14,30 @@ class TypeIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Tooltip(
+      message:
+          '${pokemonType.name[0].toUpperCase()}${pokemonType.name.substring(1)}',
+      textStyle: TextStyle(
+        color: Theme.of(context).colorScheme.secondary,
+      ),
       decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: pokemonType.color,
-          boxShadow: const [BoxShadow(spreadRadius: 0, blurRadius: 1)]),
-      padding: EdgeInsets.all(height / 4),
-      margin: const EdgeInsets.all(4),
-      child: SvgPicture.asset(
-        pokemonType.svgPath,
-        alignment: Alignment.center,
-        fit: BoxFit.scaleDown,
-        height: height,
-        width: width,
+        color: Theme.of(context).secondaryHeaderColor,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: pokemonType.color,
+            boxShadow: const [BoxShadow(spreadRadius: 0, blurRadius: 1)]),
+        padding: EdgeInsets.all(height / 4),
+        margin: const EdgeInsets.all(4),
+        child: SvgPicture.asset(
+          pokemonType.svgPath,
+          alignment: Alignment.center,
+          fit: BoxFit.scaleDown,
+          height: height,
+          width: width,
+        ),
       ),
     );
   }
