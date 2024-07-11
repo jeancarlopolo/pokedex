@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pokedex/app/pokedex_app.dart';
+import 'package:pokedex/pokedex_app.dart';
 import 'package:pokedex/services/current_tab.dart';
 import 'package:pokedex/services/favorites.dart';
 import 'package:pokedex/services/pokemon_service.dart';
