@@ -31,12 +31,17 @@ class PokemonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () => GetIt.I<Favorites>().toggleFavorite(pokemon),
       child: GridTile(
         header: Center(
           child: GridTileBar(
-            trailing: GetIt.I<Favorites>().favoriteIds.watch(context).contains(pokemon.id) ? const Icon(Icons.favorite_rounded): const Icon(Icons.favorite_border_rounded),
+            trailing: GetIt.I<Favorites>()
+                    .favoriteIds
+                    .watch(context)
+                    .contains(pokemon.id)
+                ? const Icon(Icons.favorite_rounded, color: Colors.redAccent,)
+                : const Icon(Icons.favorite_border_rounded,),
             title: Container(
               decoration: BoxDecoration(
                   color: Theme.of(context).secondaryHeaderColor,
@@ -76,8 +81,7 @@ class PokemonCard extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                   color: pokemon.pokemonTypes[0].color,
-                  blurRadius: 3,
-                  spreadRadius: 1)
+                  spreadRadius: 3)
             ],
             borderRadius: BorderRadius.circular(15),
           ),

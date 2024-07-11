@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signals/signals.dart';
 
@@ -12,44 +11,43 @@ class Settings {
   late final SharedPreferences _prefs;
 
   void init() async {
-    final loadedTheme = _prefs.getString('theme');
+    bool? loadedTheme = false;
+    bool? loadedNavigationMode = false;
+    try {
+      loadedTheme = _prefs.getBool('theme');
+    } catch (e) {
+      _prefs.remove('theme');
+      loadedTheme = null;
+    }
     if (loadedTheme != null) {
-      currentTheme.value =
-          loadedTheme == 'dark' ? ThemeMode.dark : ThemeMode.light;
+      darkMode.value = loadedTheme;
     } else {
-      _prefs.setString('theme', 'light');
+      _prefs.setBool('theme', false);
     }
 
-    final loadedNavigationMode = _prefs.getString('navigation');
+    try {
+      loadedNavigationMode = _prefs.getBool('navigation');
+    } catch (e) {
+      _prefs.remove('navigation');
+      loadedNavigationMode = null;
+    }
     if (loadedNavigationMode != null) {
-      currentNavigationMode.value = loadedNavigationMode == 'navbar'
-          ? NavigationMode.navbar
-          : NavigationMode.drawer;
+      navbarMode.value = loadedNavigationMode ;
     } else {
-      _prefs.setString('navigation', 'drawer');
+      _prefs.setBool('navigation', false);
     }
   }
 
-  final currentTheme = signal<ThemeMode>(ThemeMode.light);
-  final currentNavigationMode = signal<NavigationMode>(NavigationMode.drawer);
+  final darkMode = signal<bool>(false);
+  final navbarMode = signal<bool>(false);
 
-  void toggleTheme() {
-    if (currentTheme.value == ThemeMode.light) {
-      currentTheme.value == ThemeMode.dark;
-      _prefs.setString('theme', 'dark');
-    } else {
-      currentTheme.value == ThemeMode.light;
-      _prefs.setString('theme', 'light');
-    }
+  void toggleTheme(bool dark) {
+    darkMode.value = dark;
+    _prefs.setBool('theme', dark);
   }
 
-  void toggleNavigationMode() {
-    if (currentNavigationMode.value == NavigationMode.drawer) {
-      currentNavigationMode.value == NavigationMode.navbar;
-      _prefs.setString('navigation', 'navbar');
-    } else {
-      currentNavigationMode.value == NavigationMode.drawer;
-      _prefs.setString('navigation', 'drawer');
-    }
+  void toggleNavigationMode(bool navbar) {
+    navbarMode.value = navbar;
+    _prefs.setBool('navigation', navbar);
   }
 }

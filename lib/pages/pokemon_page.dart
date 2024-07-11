@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pokedex/models/pokemon.dart';
 import 'package:pokedex/services/pokemon_service.dart';
-import 'package:pokedex/widgets/drawer.dart';
+import 'package:pokedex/services/settings.dart';
 import 'package:pokedex/widgets/pokemon_card.dart';
 
 class PokemonPage extends StatefulWidget {
@@ -25,25 +25,20 @@ class _PokemonPageState extends State<PokemonPage> {
   }
 
   final PokemonService pokemonService = GetIt.I<PokemonService>();
+  final navigationMode = GetIt.I<Settings>().navbarMode;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(), // pesqiusa e filtro TODO
-
-      drawer: const MyDrawer(),
-
-      body: PagedGridView(
-        padding: const EdgeInsets.all(16),
-        pagingController: pokemonService.pagingController,
-        builderDelegate: PagedChildBuilderDelegate<Pokemon>(
-          itemBuilder: (context, pokemon, index) {
-            return PokemonCard(pokemon);
-          },
-        ),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, crossAxisSpacing: 16, mainAxisSpacing: 20),
+    return PagedGridView(
+      padding: const EdgeInsets.all(16),
+      pagingController: pokemonService.pagingController,
+      builderDelegate: PagedChildBuilderDelegate<Pokemon>(
+        itemBuilder: (context, pokemon, index) {
+          return PokemonCard(pokemon);
+        },
       ),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, crossAxisSpacing: 16, mainAxisSpacing: 20),
     );
   }
 }

@@ -1,16 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex/widgets/drawer.dart';
+import 'package:get_it/get_it.dart';
+import 'package:pokedex/services/favorites.dart';
+import 'package:pokedex/services/settings.dart';
+import 'package:signals/signals_flutter.dart';
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+  SettingsPage({super.key});
+
+  final settings = GetIt.I<Settings>();
+  final favorites = GetIt.I<Favorites>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(), // pesqiusa e filtro TODO
-
-      drawer: const MyDrawer(),
-      body: Container(),
+    return Column(
+      children: [
+        SwitchListTile.adaptive(
+          value: settings.darkMode.watch(context),
+          onChanged: (value) => settings.toggleTheme(value),
+          title: const Text('Dark theme'),
+          thumbIcon: const WidgetStatePropertyAll(Icon(Icons.brush_rounded)),
+        ),
+        SwitchListTile.adaptive(
+          value: settings.navbarMode.watch(context),
+          onChanged: (value) => settings.toggleNavigationMode(value),
+          title: const Text('Navigation bar mode'),
+          thumbIcon:
+              const WidgetStatePropertyAll(Icon(Icons.navigation_rounded)),
+        ),
+        ListTile(
+          onTap: () => favorites.clear(),
+          title: const Text('Clear favorites'),
+          leading: const Icon(Icons.delete_forever_rounded),
+        ),
+      ],
     );
   }
 }

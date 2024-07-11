@@ -26,6 +26,12 @@ class Favorites {
     }
   }
 
+  void clear() {
+    favoriteIds.clear();
+    favoritePokemons.clear();
+    _prefs.setStringList('favorites', []);
+  }
+
   void toggleFavorite(Pokemon pokemon) {
     if (favoriteIds.contains(pokemon.id)) {
       _remove(pokemon);
