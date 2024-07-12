@@ -61,7 +61,7 @@ class PokemonCard extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        '${pokemon.id.padLeft(3, '0')} - ${pokemon.name[0].toUpperCase()}${pokemon.name.substring(1)}',
+                        '${pokemon.id.padLeft(3, '0')} - ${pokemon.name}',
                         softWrap: true,
                         maxLines: 2,
                         style: TextStyle(
@@ -106,7 +106,7 @@ class PokemonCard extends StatelessWidget {
           alignment: Alignment.center,
           child: CachedNetworkImage(
             imageUrl: pokemon.sprite,
-            height: 125,
+            height: 110,
             fit: BoxFit.contain,
             maxHeightDiskCache: 175,
             progressIndicatorBuilder: (context, url, downloadProgress) =>
