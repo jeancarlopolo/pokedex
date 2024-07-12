@@ -58,7 +58,6 @@ class SearchPokemon extends SearchDelegate {
           final pokemonResponse =
               await http.get(Uri.parse(pokemonMap['pokemon']['url']));
           final pokemonData = json.decode(pokemonResponse.body);
-      print(pokemonData['sprites']);
           pokemons.add(Pokemon.fromMap(pokemonData));
         }
         if (pokemons.length < 10) {
