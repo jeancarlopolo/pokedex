@@ -18,7 +18,7 @@ class MyDrawer extends StatelessWidget {
                 Navigator.pop(context);
                 currentTab.value = 0;
               },
-              title: const Text('Pokémon'),
+              title: const Text('Pokémons'),
               leading: const Icon(Icons.grid_view_rounded),
             ),
             ListTile(
@@ -26,7 +26,7 @@ class MyDrawer extends StatelessWidget {
                 Navigator.pop(context);
                 currentTab.value = 1;
               },
-              title: const Text('Favorites'),
+              title: const Text('Favoritos'),
               leading: const Icon(Icons.favorite_border_rounded),
             ),
             ListTile(
@@ -34,7 +34,7 @@ class MyDrawer extends StatelessWidget {
                 Navigator.pop(context);
                 currentTab.value = 2;
               },
-              title: const Text('Settings'),
+              title: const Text('Configurações'),
               leading: const Icon(Icons.settings),
             ),
           ],

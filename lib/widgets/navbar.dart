@@ -14,15 +14,15 @@ class MyNavBar extends StatelessWidget {
       destinations: const [
         NavigationDestination(
           icon: Icon(Icons.grid_view_rounded),
-          label: 'Pokémon',
+          label: 'Pokémons',
         ),
         NavigationDestination(
           icon: Icon(Icons.favorite_border_rounded),
-          label: 'Favorites',
+          label: 'Favoritos',
         ),
         NavigationDestination(
           icon: Icon(Icons.settings),
-          label: 'Settings',
+          label: 'Configurações',
         ),
       ],
       onDestinationSelected: (tab) {

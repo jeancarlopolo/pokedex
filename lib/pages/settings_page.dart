@@ -17,19 +17,19 @@ class SettingsPage extends StatelessWidget {
         SwitchListTile.adaptive(
           value: settings.darkMode.watch(context),
           onChanged: (value) => settings.toggleTheme(value),
-          title: const Text('Dark theme'),
+          title: const Text('Modo escuro'),
           thumbIcon: const WidgetStatePropertyAll(Icon(Icons.brush_rounded)),
         ),
         SwitchListTile.adaptive(
           value: settings.navbarMode.watch(context),
           onChanged: (value) => settings.toggleNavigationMode(value),
-          title: const Text('Navigation bar mode'),
+          title: const Text('Modo de navegação alternativo'),
           thumbIcon:
               const WidgetStatePropertyAll(Icon(Icons.navigation_rounded)),
         ),
         ListTile(
           onTap: () => favorites.clear(),
-          title: const Text('Clear favorites'),
+          title: const Text('Limpar favoritos'),
           leading: const Icon(Icons.delete_forever_rounded),
         ),
       ],

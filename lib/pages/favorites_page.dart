@@ -16,7 +16,7 @@ class FavoritesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return favorites.favoritePokemons.watch(context).isEmpty
         ? const Center(
-            child: Text("No favorites yet :("),
+            child: Text("Sem favoritos ainda :("),
           )
         : GridView.builder(
             itemBuilder: (context, index) =>
